@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, dispatch,error } = useContext(AuthContext);
   // const { loading, error, dispatch } = useContext(AuthContext);
+  console.log(error);
   const [logout,setLogout]=useState(false);
+  console.log(logout);
   const handleLogout = async ()=>{
     try {
 			const res = await fetch("http://localhost:8800/api/auth/logout", {

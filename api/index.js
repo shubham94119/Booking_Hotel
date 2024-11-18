@@ -7,9 +7,12 @@ import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/rooms.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 dotenv.config();
+
+const _dirname = path.resolve();
 
 const connect = async () => {
   try {
@@ -46,6 +49,11 @@ app.use((err, req, res, next) => {
   });
 });
 
+app.use(express.static(path.join(_dirname,"/client/build")));
+app.get('*',(_,res)=>{
+  res.sendFile(path.resolve(_dirname,"client","build","index.html"));
+})
+
 app.get("/user",(req,res)=>{
   res.send("hello first request")
 })
@@ -53,4 +61,6 @@ app.get("/user",(req,res)=>{
 app.listen(8800, () => {
   connect();
   console.log("Connected to backend.");
+  console.log("server is running on port 8800"); 
+
 });
